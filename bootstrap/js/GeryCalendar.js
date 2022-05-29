@@ -14,6 +14,7 @@ function setActMonth() {
     let actMonthNumber = document.querySelector("span.actMonthNumber");
     actMonthNumber.innerHTML = actMonth;
 }
+
 function setActYear() {
     let actYear = new Date().getFullYear();
     let showYear = document.querySelector("span.showYear")

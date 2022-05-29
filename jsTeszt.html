@@ -1,0 +1,35 @@
+<html>
+<body>
+    <script>
+
+function fillCalendarDays(StartDay = 0, MaxDayCounter = 31) {
+        let calendarDays = new Array(5).fill(0).map(()=>new Array(7).fill(0));
+        let DayNumber = 1;
+        let WeekCounter=0
+        //Az első hét feltöltése Stardaytől a hét végéig.
+        for (let DayCounter = StartDay; DayCounter <= 6; DayCounter++) {
+                calendarDays[WeekCounter] [DayCounter] = DayNumber;
+                DayNumber= DayNumber+1;
+        }
+        //A többi hét feltöltése Max napjáig a hónapnak.
+        for (let WeekCounter = 1; WeekCounter <= 4; WeekCounter++) {
+            for (let DayCounter = 0; DayCounter <= 6; DayCounter++) {
+                calendarDays[WeekCounter] [DayCounter] = DayNumber;
+                DayNumber= DayNumber+1;
+                if (DayNumber > MaxDayCounter) {
+                    break;
+                }
+            }
+            if (DayNumber > MaxDayCounter) {
+                break;
+            }
+        }
+        return calendarDays;
+    }
+    fillCalendarDays(6,31);
+console.log(calendarDays);
+    </script>
+    
+</body>
+
+</html>

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="hun">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+  <link rel="JavaScript" href="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+  <link rel="JavaScript" href="/SzaszGery.github.io/bootstrap/js/GeryCalendar.js">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="/SzaszGery.github.io/bootstrap/js/GeryCalendar.js"></script>
+  <script src="bootstrap/js/bootstrap.js"></script>
+  <script src="bootstrap/js/bootstrap.bundle.js"></script>
+  <script src="bootstrap/js/bootstrap.esm.js"></script>
+  <title>Gery honlapja</title>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-md bg-info navbar-dark">
+    <div class="container-xxl bd-gutter flex-wrap flex-lg-nowrap">
+      <a class="navbar-brand navbar-dark active rounded-2" href="index-hun.html">Fő oldal</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+          <li class="nav-item">
+            <a class="nav-link navbar-dark" aria-current="page" href="pages/en/connection.html">Kapcsolat</a>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle " href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              Személyes
+            </a>
+            <ul class="dropdown-menu dropdown-menu-dark bg-info" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item rounded-2" href="https://photos.google.com/?tab=iq&pageId=none"
+                  target="_blank">Képek</a></li>
+              <li><a class="dropdown-item rounded-2" href="pages/en/videos.html">Videók</a></li>
+              <li><a class="dropdown-item rounded-2" href="pages/en/about.html">Rólam</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              Nyelv
+            </a>
+            <ul class="dropdown-menu dropdown-menu-dark bg-info" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item rounded-2" href="index-hun.html">Magyar</a></li>
+              <li><a class="dropdown-item rounded-2" href="index-en.html">Angol</a></li>
+
+            </ul>
+          </li>
+        </ul>
+        <form class="d-flex" role="search">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Keresés</button>
+        </form>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm">
+        <br>
+        <div class="table-drope-shadow">
+          <table class="table-sm table-stripped table-bordered text-center">
+            <thead class="bg-info">
+              <tr>
+                <th colspan="7">
+                  <button class="calendar-btn rounded-2 calendar-btn-left"
+                    onclick="previousMonth(getYearFromScreen(),getMonthNumberFromScreen(),lastActiveCalendarDay)"
+                    id="btn-month-subtact">
+                    <img height="100%" src="/SzaszGery.github.io/img/icons/arrow-bar-left.svg" alt="previousMonth">
+                  </button>
+                      <span class="showYear">####</span> <span class="showMonth">@@@</Span>
+                      <span class="actMonthNumber">0</span>
+                      <button class="calendar-btn rounded-2"
+                        onclick="nextMonth(getYearFromScreen(),getMonthNumberFromScreen(),lastActiveCalendarDay)"
+                        id="btn-month-add"><img height="100%" src="/SzaszGery.github.io/img/icons/arrow-bar-right.svg" alt="nextMonth">
+                      </button>
+                </th>
+              </tr>
+              <tr>
+                <th>H</th>
+                <th>K</th>
+                <th>SZ</th>
+                <th>CS</th>
+                <th>P</th>
+                <th class="text-danger link-danger">SZO</th>
+                <th class="text-danger link-danger">V</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="calendar-body" id="000"><Span id="00">##</Span></td>
+                <td class="calendar-body" id="011"><Span id="01">##</Span></td>
+                <td class="calendar-body" id="022"><Span id="02">##</Span></td>
+                <td class="calendar-body" id="033"><Span id="03">##</Span></td>
+                <td class="calendar-body" id="044"><Span id="04">##</Span></td>
+                <td class="calendar-body" id="055"><Span id="05">##</Span></td>
+                <td class="calendar-body" id="066"><Span id="06">##</Span></td>
+              </tr>
+              <tr>
+                <td class="calendar-body" id="100"><Span id="10">##</Span></td>
+                <td class="calendar-body" id="111"><Span id="11">##</Span></td>
+                <td class="calendar-body" id="122"><Span id="12">##</Span></td>
+                <td class="calendar-body" id="133"><Span id="13">##</Span></td>
+                <td class="calendar-body" id="144"><Span id="14">##</Span></td>
+                <td class="calendar-body" id="155"><Span id="15">##</Span></td>
+                <td class="calendar-body" id="166"><Span id="16">##</Span></td>
+              </tr>
+              <tr>
+                <td class="calendar-body" id="200"><Span id="20">##</Span></td>
+                <td class="calendar-body" id="211"><Span id="21">##</Span></td>
+                <td class="calendar-body" id="222"><Span id="22">##</Span></td>
+                <td class="calendar-body" id="233"><Span id="23">##</Span></td>
+                <td class="calendar-body" id="244"><Span id="24">##</Span></td>
+                <td class="calendar-body" id="255"><Span id="25">##</Span></td>
+                <td class="calendar-body" id="266"><Span id="26">##</Span></td>
+              </tr>
+              <tr>
+                <td class="calendar-body" id="300"><Span id="30">##</Span></td>
+                <td class="calendar-body" id="311"><Span id="31">##</Span></td>
+                <td class="calendar-body" id="322"><Span id="32">##</Span></td>
+                <td class="calendar-body" id="333"><Span id="33">##</Span></td>
+                <td class="calendar-body" id="344"><Span id="34">##</Span></td>
+                <td class="calendar-body" id="355"><Span id="35">##</Span></td>
+                <td class="calendar-body" id="366"><Span id="36">##</Span></td>
+              </tr>
+              <tr>
+                <td class="calendar-body" id="400"><Span id="40">##</Span></td>
+                <td class="calendar-body" id="411"><Span id="41">##</Span></td>
+                <td class="calendar-body" id="422"><Span id="42">##</Span></td>
+                <td class="calendar-body" id="433"><Span id="43">##</Span></td>
+                <td class="calendar-body" id="444"><Span id="44">##</Span></td>
+                <td class="calendar-body" id="455"><Span id="45">##</Span></td>
+                <td class="calendar-body" id="466"><Span id="46">##</Span></td>
+              </tr>
+              <tr>
+                <td class="calendar-body" id="500"><Span id="50">##</Span></td>
+                <td class="calendar-body" id="511"><Span id="51">##</Span></td>
+                <td class="calendar-body" id="522"><Span id="52">##</Span></td>
+                <td class="calendar-body" id="533"><Span id="53">##</Span></td>
+                <td class="calendar-body" id="544"><Span id="54">##</Span></td>
+                <td class="calendar-body" id="555"><Span id="55">##</Span></td>
+                <td class="calendar-body" id="566"><Span id="56">##</Span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <br>
+        <table class="table-datecard nav-link rounded-2">
+          <thead id="dateCardTHead" class="bg-info rounded-top">
+            <th id="dateCardHead" class="rounded-top-left">
+              Aktuális dátum és idő
+            </th>
+            <th id="dateCardThHider" class="rounded-top-right">
+              <img id="dateCardHider" class="img-btn rounded-2" src="/SzaszGery.github.io/img/icons/arrow-bar-up.svg" alt="Elrejtés" onclick="actDateCardHider()"><img id="dateCardReappear" src="/SzaszGery.github.io/img/icons/arrow-bar-down.svg" alt="Elrejtés" onclick="actDateCardReappear()" class="vanished">
+            </th>
+          </thead>
+          <tbody id="dateCardBody">
+            <tr>
+              <td class="calendar-body" colspan="12">
+                <span class="showYearActDate">####</span>.
+                <span class="showMonthActDate">@@@</Span>.
+                <span class="showDayActDate">XX</span>.
+                <span class="showActDayName">XXXX</span>
+              </td>
+            </tr>
+            <tr>
+              <td class="calendar-body rounded-bottom" colspan="12">
+                <span class="showActHour">####</span>:
+                <span class="showActMinute">@@@</Span>:
+                <span class="showActSecond">XX</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <br>
+        <table class="table-datecard nav-link rounded-2">
+          <thead>
+            <th class="bg-info rounded-top">
+              Ugrás egy dátumhoz
+            </th>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <input class="rounded-2" type="date" name="userSelectedDateInput" id="USDI">
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <button class="btn btn-sm btn-outline-success" id="DateInputBtn" onclick="jumpToUserDate()">Mehet!</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-8">
+        <br>
+        <h1>Gery első honlapja</h1>
+        <br>
+        <br>
+        <br>
+        <p>Üdvözöllek az első HTML oldalamon. Ezt a weboldalt gyakorlás céljából hoztam létre, hogy kipróbálhassam a
+          különböző HTML elemek használatát, gyakorolhassam a Bootstrap a JavaScrip és a CSS nyújtotta lehetőségeket.
+          Nyugodtan próbálj is végig mindent, és néha nézz vissza az oldalra, hogyan fejlődik.
+          Ezt leírom angolul is, hogy több legyen a szöveg:
+          Welcome to my first HTML page. I created this website for practice so that I could try out the different HTML
+          elements, practice Bootstrap with JavaScript and CSS.
+          Feel free to try it all through and sometimes look back at how it develops.</p>
+      </div>
+      <div class="col-sm">
+      </div>
+    </div>
+  </div>
+  <Script>setActYear(); setActMonth(); setMonthNameHun(); setToday(), getTimeEverySecond(), writeActDayNameHun(getActDateFromScreen()),
+      writeCalendarDays(fillCalendarDays(getFirstWeekDayNumberOfMonthHun(),getMonthMaxDays(getMonthNumberFromScreen(), MonthMaxDays)))   
+  </Script>
+
+
+</body>
+
+</html>

@@ -2031,6 +2031,12 @@ progress {
   color: #c6eef6;
 }
 
+.calendar-active-by-user{
+  border: 1px solid #12613c;
+  background-color: #198754;
+  color: #c6eef6;
+}
+
 .table-datecard{
   border: 1px solid #06357a;
   width: max-content;

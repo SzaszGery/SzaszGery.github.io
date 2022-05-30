@@ -1,26 +1,24 @@
 const MonthMaxDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 //const DayNameHun = ["Hétfő", "Kedd", "Szerda", "Csütörtök", "Péntek", "Szombat", "Vasárnap"];
-var lastActiveCalendarDay="";
+var actDateMarked="";
 var globalUserDate="";
 var globalUserYear="";
 var globalUserMonth="";
 var globalUserDay="";
-var globalActYear = "";
-var globalActMonth = "";
-var globalActDay = "";
+var globalUserDayMarked = "";
+var globalActYear = new Date().getFullYear();
+var globalActMonth =new Date().getMonth();
+var globalActDay = new Date().getDate();
+var globalActDayNumer= new Date().getDay();
+var globalUserSuccesDateSelection = false;
+var globalCalendarWidgetYear = new Date().getFullYear();
+var globalCalendarWidgetMonth = new Date().getMonth();
+var globalCalendarWidgetDay = new Date().getDate();
+var globalClicledCalendaItemID ="";
 
-function setActMonth() {
-    let actMonth = new Date().getMonth();
-    let actMonthNumber = document.querySelector("span.actMonthNumber");
-    actMonthNumber.innerHTML = actMonth;
+function setShowYear(){
+    document.querySelector("span.showYear").innerHTML = globalActYear;
 }
-
-function setActYear() {
-    let actYear = new Date().getFullYear();
-    let showYear = document.querySelector("span.showYear")
-    showYear.innerHTML = actYear;
-}
-
 // A naptár widget alatti Aktuális dátum és idő kártya feltöltése adatokkal
 function setToday(){
     actYear = new Date().getFullYear();
@@ -46,26 +44,9 @@ function getTimeEverySecond(){
     setInterval(setActTime,1000);
 }
 
-function getYearFromScreen() {
-    let actYear = document.querySelector("span.showYear");
-    return actYear.innerHTML;
-}
-
-function getMonthNumberFromScreen() {
-    let actMonth = document.querySelector("span.actMonthNumber");
-    return actMonth.innerHTML;
-}
-
-function getActDayFromScreen(){
-    let actDay = document.querySelector("span.showDayActDate");
-    return actDay.innerHTML;
-}
-
 function setMonthNameEn() {
-    let monthNumber = document.querySelector("span.actMonthNumber");
     let showMonthName = document.querySelector("span.showMonth");
-    let monthIndex = parseInt(monthNumber.textContent)
-    switch (monthIndex ) {
+    switch (globalCalendarWidgetMonth) {
         case 0:
             showMonthName.innerHTML = "January";
             break;
@@ -105,10 +86,8 @@ function setMonthNameEn() {
 }
 
 function setMonthNameHun() {
-    let monthNumber = document.querySelector("span.actMonthNumber");
     let showMonthName = document.querySelector("span.showMonth");
-    let monthIndex = parseInt(monthNumber.textContent)
-    switch (monthIndex ) {
+    switch (globalCalendarWidgetMonth) {
         case 0:
             showMonthName.innerHTML = "Január";
             break;
@@ -152,18 +131,9 @@ function setMonthEn() {
     showMonth.innerHTML = Date().slice(4, 7);
 }
 
-function getActDateFromScreen(){
-    let actYear = getYearFromScreen();
-    let actMonth = parseInt(getMonthNumberFromScreen())+1;
-    let actDay= getActDayFromScreen();
-    let actDate = new Date(actYear+"." + String(actMonth) + "." +actDay);
-    return actDate
-}
-
-function writeActDayNameEn(actDate){
-    let DayNumber = new Date(actDate).getDay();
+function writeActDayNameEn(){
     let showDayName = document.querySelector("span.showActDayName");
-    switch (DayNumber) {
+    switch (globalActDayNumer) {
         case 0:
             showDayName.innerHTML = "Sunday";
             break;
@@ -179,126 +149,38 @@ function writeActDayNameEn(actDate){
         case 4:
             showDayName.innerHTML = "Thursday";
             break;
-        case 5:
-            showDayName.innerHTML = "Friday";
-            break;
-        case 6:
-            showDayName.innerHTML = "Saturday";
-    }
+            case 5:
+                showDayName.innerHTML = "Friday";
+                break;
+                case 6:
+                    showDayName.innerHTML = "Saturday";
+                }
 }
 
-function writeActDayNameHun(actDate){
-    let DayNumber = new Date(actDate).getDay();
+function writeActDayNameHun(){
     let showDayName = document.querySelector("span.showActDayName");
-    switch (DayNumber) {
+    switch (globalActDayNumer) {
         case 0:
             showDayName.innerHTML = "Vasárnap";
             break;
-        case 1:
-            showDayName.innerHTML = "Hétfő";
-            break;
-        case 2:
-            showDayName.innerHTML = "Kedd";
-            break;
-        case 3:
-            showDayName.innerHTML = "Szerda";
-            break;
-        case 4:
-            showDayName.innerHTML = "Csütörtök";
-            break;
-        case 5:
-            showDayName.innerHTML = "Péntek";
-            break;
-        case 6:
+            case 1:
+                showDayName.innerHTML = "Hétfő";
+                break;
+                case 2:
+                    showDayName.innerHTML = "Kedd";
+                    break;
+                    case 3:
+                        showDayName.innerHTML = "Szerda";
+                        break;
+                        case 4:
+                            showDayName.innerHTML = "Csütörtök";
+                            break;
+                            case 5:
+                                showDayName.innerHTML = "Péntek";
+                                break;
+                                case 6:
             showDayName.innerHTML = "Szombat";
-    }
-}
-
-function getFirstWeekDayNumberOfMonthEn(actYear, actMonth) {
-    if (actYear == null) { actYear = new Date().getFullYear() }
-    if (actMonth == null) { actMonth = new Date().getMonth() }
-    let DayNumber = new Date(String(actYear)+"." + String(actMonth+1) + "." + "01").getDay();
-    return DayNumber;
-}
-
-function getFirstWeekDayNumberOfMonthHun(actYear, actMonth) {
-    if (actYear == null) { actYear = new Date().getFullYear() }
-    if (actMonth == null) { actMonth = new Date().getMonth() }
-    let DayNumber = new Date(String(actYear)+"." + String(actMonth+1) + "." + "01").getDay();
-    DayNumber = DayNumber == 0 ? 6 : DayNumber-1;
-    return DayNumber;
-}
-
-function markActDayInCalendar(calendarTdID){
-    lastActiveCalendarDay=calendarTdID;
-    document.getElementById(calendarTdID).className ="calendar-active";
-}
-
-
-function isItLeapYear(actYear) {
-    let leapYear = Boolean(actYear % 400) == false ? true : false;
-    if (leapYear != true) {leapYear= Boolean(actYear % 4) == false && Boolean(actYear % 100) == true ? true : false}
-    return leapYear;
-}
-
-function getMonthMaxDays(actMonth, MonthMaxDays) {
-    let MaxDayCounter = isItLeapYear() == true && actMonth == 1 ? 29 : MonthMaxDays[actMonth];
-    return MaxDayCounter;
-}
-
-
-function previousMonth(actYear, actMonth) {
-    actYear = parseInt(actYear);
-    actMonth = parseInt(actMonth);
-    if (actMonth == 0) {
-        actMonth = 11;
-        actYear = actYear - 1;
-        document.querySelector("span.showYear").innerHTML = actYear;
-    }
-    else {
-        actMonth = actMonth - 1;
-    }
-    document.querySelector("span.actMonthNumber").innerHTML = actMonth;
-    //A calendarWidgetben történő lapozáskor levesszük a formázást az utoljára beszínezett napról
-    document.getElementById(lastActiveCalendarDay).className="calendar-body";
-    setMonthNameHun();
-    writeCalendarDays(fillCalendarDays(getFirstWeekDayNumberOfMonthHun(actYear, actMonth), getMonthMaxDays(actMonth, MonthMaxDays)))
-}
-
-
-function nextMonth(actYear, actMonth) {
-    actYear = parseInt(actYear);
-    actMonth = parseInt(actMonth);
-    if (actMonth == 11) {
-        actMonth = 0
-        actYear = actYear + 1;
-        document.querySelector("span.showYear").innerHTML = actYear;
-    }
-    else {
-        actMonth = actMonth + 1;
-    }
-    document.querySelector("span.actMonthNumber").innerHTML = actMonth;
-    document.getElementById(lastActiveCalendarDay).className="calendar-body";
-    setMonthNameHun();
-    writeCalendarDays(fillCalendarDays(getFirstWeekDayNumberOfMonthHun(actYear, actMonth), getMonthMaxDays(actMonth, MonthMaxDays)))
-}
-
-function nextMonthEn(actYear,actMonth) {
-    actYear = parseInt(actYear);
-    actMonth = parseInt(actMonth);
-    if (actMonth == 11) {
-        actMonth = 0
-        actYear = actYear + 1;
-        document.querySelector("span.showYear").innerHTML = actYear;
-    }
-    else {
-        actMonth = actMonth + 1;
-    }
-    document.querySelector("span.actMonthNumber").innerHTML = actMonth;
-    document.getElementById(lastActiveCalendarDay).className="calendar-body";
-    setMonthNameHun();
-    writeCalendarDays(fillCalendarDays(getFirstWeekDayNumberOfMonthEn(actYear, actMonth), getMonthMaxDays(actMonth, MonthMaxDays)))
-    
+        }
 }
 
 function actDateCardHider(){
@@ -318,20 +200,128 @@ function actDateCardReappear(){
     document.getElementById("dateCardThHider").className="bg-info rounded-top-right";
 }
 
-function jumpToUserDate(){
-    //alert("Az Ön által megadott dátum:"+document.querySelector("input#USDI").value)
+function getFirstWeekDayNumberOfMonthEn(actYear, actMonth) {
+    if (actYear == null) { actYear = new Date().getFullYear() }
+    if (actMonth == null) { actMonth = new Date().getMonth() }
+    let DayNumber = new Date(String(actYear)+"." + String(actMonth+1) + "." + "01").getDay();
+    return DayNumber;
+}
+
+function getFirstWeekDayNumberOfMonthHun(actYear, actMonth) {
+    if (actYear == null) { actYear = new Date().getFullYear() }
+    if (actMonth == null) { actMonth = new Date().getMonth() }
+    let DayNumber = new Date(String(actYear)+"." + String(actMonth+1) + "." + "01").getDay();
+    console.log(new Date(String(actYear)+"." + String(actMonth+1) + "." + "01"))
+    DayNumber = DayNumber == 0 ? 6 : DayNumber-1;
+    return DayNumber;
+}
+
+function markActDayInCalendar(calendarTdID){
+    actDateMarked=calendarTdID;
+    document.getElementById(calendarTdID).className ="calendar-active";
+}
+
+function isItLeapYear(actYear) {
+    let leapYear = Boolean(actYear % 400) == false ? true : false;
+    if (leapYear != true) {leapYear= Boolean(actYear % 4) == false && Boolean(actYear % 100) == true ? true : false}
+    return leapYear;
+}
+
+function markUserSelectedDayInCalendar(calendarTdID){
+    globalUserDayMarked=calendarTdID;
+    document.getElementById(calendarTdID).className ="calendar-active-by-user";
+}
+
+function setUserSelectedDayOnClick(clkickedCalendarTdID){
+    
+}
+
+function getMonthMaxDays() {
+    let actMonth = globalActMonth;
+    let MaxDayCounter = isItLeapYear() == true && actMonth == 1 ? 29 : MonthMaxDays[actMonth];
+    return MaxDayCounter;
+}
+
+function previousMonth() {
+    actYear = parseInt(globalCalendarWidgetYear);
+    actMonth = parseInt(globalCalendarWidgetMonth);
+    if (actMonth == 0) {
+        actMonth = 11;
+        actYear = actYear - 1;
+        globalCalendarWidgetYear=actYear;
+        document.querySelector("span.showYear").innerHTML = actYear;
+    }
+    else {
+        actMonth = actMonth - 1;
+    }
+    globalCalendarWidgetMonth = actMonth;
+    //A calendarWidgetben történő lapozáskor levesszük a formázást az utoljára beszínezett napról
+    if (actDateMarked !="" || null) {document.getElementById(actDateMarked).className="calendar-body"}
+    if (globalUserDayMarked !="" || null) {document.getElementById(globalUserDayMarked).className="calendar-body"}
+    setMonthNameHun();
+    writeCalendarDays(fillCalendarDays(getFirstWeekDayNumberOfMonthHun(actYear, actMonth), getMonthMaxDays()))
+}
+
+
+function nextMonth() {
+    actYear = parseInt(globalCalendarWidgetYear);
+    actMonth = parseInt(globalCalendarWidgetMonth);
+    if (actMonth == 11) {
+        actMonth = 0
+        actYear = actYear + 1;
+        globalCalendarWidgetYear=actYear;
+        document.querySelector("span.showYear").innerHTML = actYear;
+    }
+    else {
+        actMonth = actMonth + 1;
+    }
+    globalCalendarWidgetMonth = actMonth;
+    if (actDateMarked !="" || null) {document.getElementById(actDateMarked).className="calendar-body"}
+    if (globalUserDayMarked !="" || null) {document.getElementById(globalUserDayMarked).className="calendar-body"}
+    setMonthNameHun();
+    writeCalendarDays(fillCalendarDays(getFirstWeekDayNumberOfMonthHun(actYear, actMonth), getMonthMaxDays()))
+}
+
+function nextMonthEn(actYear,actMonth) {
+    actYear = parseInt(globalCalendarWidgetYear);
+    actMonth = parseInt(globalCalendarWidgetMonth);
+    if (actMonth == 11) {
+        actMonth = 0
+        actYear = actYear + 1;
+        globalCalendarWidgetYear = actYear;
+        document.querySelector("span.showYear").innerHTML = actYear;
+    }
+    else {
+        globalCalendarWidgetMonth = actMonth + 1;
+    }
+    globalActMonth = actMonth;
+    if (actDateMarked !="" || null) {document.getElementById(actDateMarked).className="calendar-body"}
+    if (globalUserDayMarked !="" || null) {document.getElementById(globalUserDayMarked).className="calendar-body"}
+    setMonthNameHun();
+    writeCalendarDays(fillCalendarDays(getFirstWeekDayNumberOfMonthEn(actYear, actMonth), getMonthMaxDays(actMonth, MonthMaxDays)))
+}
+
+
+function getUserSelectedDate(){
     globalUserDate=document.querySelector("input#USDI").value
     if (globalUserDate == "" || null){alert("Hoppácska! Pont nem adott meg dátumot! Így sajnos nem tudom a kérést végrehajtani!")}
     else {
-    document.getElementById(lastActiveCalendarDay).className="calendar-body";
-    globalUserYear=globalUserDate.slice(0,4);
-    globalUserMonth=globalUserDate.slice(5,7);
-    globalUserDay=globalUserDate.slice(8,10);
-    document.querySelector("span.showYear").innerHTML=globalUserYear;
-    document.querySelector("span.actMonthNumber").innerHTML=parseInt(globalUserMonth)-1;
-    setMonthNameHun()
-    writeCalendarDaysUserDate(fillCalendarDays(getFirstWeekDayNumberOfMonthHun(),getMonthMaxDays(getMonthNumberFromScreen(), MonthMaxDays)));
+        globalUserYear=globalUserDate.slice(0,4);
+        globalUserMonth=globalUserDate.slice(5,7);
+        globalUserDay=globalUserDate.slice(8,10);
+        globalUserSuccesDateSelection= true;
     }
+}
+
+function jumpToUserDate(){
+    if (globalUserSuccesDateSelection==true) {document.getElementById(globalUserDayMarked).className="calendar-body"}
+    getUserSelectedDate();
+    document.querySelector("span.showYear").innerHTML=globalUserYear;
+    globalCalendarWidgetYear=globalUserYear;
+    globalCalendarWidgetMonth=parseInt(globalUserMonth)-1;
+    if (globalCalendarWidgetYear != globalActYear || globalCalendarWidgetMonth != globalActMonth){document.getElementById(actDateMarked).className="calendar-body"};
+    setMonthNameHun()
+    writeCalendarDays(fillCalendarDays(getFirstWeekDayNumberOfMonthHun(globalCalendarWidgetYear,globalCalendarWidgetMonth),getMonthMaxDays()));
 }
 
 
@@ -360,34 +350,30 @@ function fillCalendarDays(StartDay, MaxDayCounter) {
     return calendarDays;
 }
 
-function massModify(selector, attribute, value) {
-    let nodelist = document.querySelectorAll(selector);
-    for (let i =0; i< nodelist.length; i++)
-        {nodelist[i][attribute] = value;}
-}
+//function massModify(selector, attribute, value) {
+//    let nodelist = document.querySelectorAll(selector);
+//    for (let i =0; i< nodelist.length; i++)
+//        {nodelist[i][attribute] = value;}
+//}
 
 //Már anaptár felület feltöltésekor színezzük az Atuális napot, de csak akkor, ha az Év és a hónap is az aktuális dátumon van.
 function writeCalendarDays(calendarDays) {
-    let actYear = getYearFromScreen();
-    let actMonth = parseInt(getMonthNumberFromScreen())+1;
-    let actDay= getActDayFromScreen();
-    let calendarYear = document.querySelector("span.showYear").innerHTML;
-    let calendarMonth = parseInt(document.querySelector("span.showMonthActDate").innerHTML);
+    let actYear = globalActYear;
+    let actMonth =globalActMonth;
+    let actDay= globalActDay;
+    let userSelectedYear = globalUserYear;
+    let userSelectedMonth = parseInt(globalUserMonth)-1;
+    let userSelectedDay= globalUserDay;
+    let calendarYear = globalCalendarWidgetYear;
+    let calendarMonth = globalCalendarWidgetMonth;
     for (x = 0; x <= 5; x++) {
         for (y = 0; y <= 6; y++) {
             document.getElementById(String(x) + String(y)).innerHTML = calendarDays[x][y];
             if (calendarDays[x][y] == actDay && actYear ==  calendarYear && actMonth == calendarMonth) 
             {markActDayInCalendar(String(x) + String(y) + String(y));}
-        }
-    }
-}
-//A falhasználó által megadott dátumra ugrásnál csak a napot kell figyelni, mert a CalendarWidgetet már hozzáigazítottuk az évhez és a hónaphoz.
-function writeCalendarDaysUserDate(calendarDays) {
-    for (x = 0; x <= 5; x++) {
-        for (y = 0; y <= 6; y++) {
-            document.getElementById(String(x) + String(y)).innerHTML = calendarDays[x][y];
-            if (parseInt(calendarDays[x][y]) == parseInt(globalUserDay)) 
-            {markActDayInCalendar(String(x) + String(y) + String(y));}
+            if (globalUserSuccesDateSelection == true && calendarDays[x][y] == userSelectedDay && userSelectedYear ==  calendarYear && userSelectedMonth == calendarMonth){
+                markUserSelectedDayInCalendar(String(x) + String(y) + String(y));
+                }
         }
     }
 }

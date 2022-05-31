@@ -217,7 +217,7 @@ function getFirstWeekDayNumberOfMonthHun(actYear, actMonth) {
 
 function markActDayInCalendar(calendarTdID){
     actDateMarked=calendarTdID;
-    document.getElementById(calendarTdID).className ="calendar-active";
+    document.getElementById(calendarTdID).className ="calendar-body calendar-active";
 }
 
 function isItLeapYear(actYear) {
@@ -320,12 +320,10 @@ function getUserSelectedDate(){
 }
 
 function jumpToUserDate(){
-    if (globalUserSuccesDateSelection==true) {document.getElementById(globalUserDayMarked).className="calendar-body"}
     getUserSelectedDate();
     document.querySelector("span.showYear").innerHTML=globalUserYear;
     globalCalendarWidgetYear=globalUserYear;
     globalCalendarWidgetMonth=parseInt(globalUserMonth)-1;
-    if (globalCalendarWidgetYear != globalActYear || globalCalendarWidgetMonth != globalActMonth){document.getElementById(actDateMarked).className="calendar-body"};
     setMonthNameHun();
     removeCalendarBody();
     createCalendarBody(fillCalendarDays(getFirstWeekDayNumberOfMonthHun(globalCalendarWidgetYear,globalCalendarWidgetMonth),getMonthMaxDays()));
@@ -368,8 +366,8 @@ function fillCalendarDays(StartDay, MaxDayCounter) {
 //Definiáljuk a naptár elemek OnClick eseményét
 function addClickEventToCalendarday(){
     let calendarBodyTd= document.querySelectorAll(".calendar-body")
-    for (i = 0; i < calendarBodyTd.length; i++) {
-            calendarBodyTd[i].addEventListener("click",setUserSelectedDayOnClick);
+    for (i = 0; i < calendarBodyTd.length; i++) {         
+            if (calendarBodyTd[i].className!="calendar-body calendar-body-disabled"){calendarBodyTd[i].addEventListener("click",setUserSelectedDayOnClick);}
         }
 }
 //A naptár testének eltávolítása soronként, a Body a szülő, a sorok a gyerekek
@@ -401,6 +399,7 @@ function createCalendarBody(calendarDays){
             calendarTd.innerHTML=calendarDays[rowCounter][tdCounter];
             parentRow.appendChild(calendarTd);
             if (calendarDays[rowCounter][tdCounter] !=null) {lastWritenday=calendarDays[rowCounter][tdCounter]}
+            else{calendarTd.className="calendar-body calendar-body-disabled";}
             if (calendarDays[rowCounter][tdCounter] == globalActDay && globalActYear ==  globalCalendarWidgetYear && globalActMonth == globalCalendarWidgetMonth) 
             {markActDayInCalendar(tdID);}
             if (globalUserSuccesDateSelection == true && calendarDays[rowCounter][tdCounter] == globalUserDay && globalUserYear ==  globalCalendarWidgetYear && parseInt(globalUserMonth)-1 == globalCalendarWidgetMonth){

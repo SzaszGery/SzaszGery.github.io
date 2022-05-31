@@ -232,13 +232,25 @@ function markUserSelectedDayInCalendar(calendarTdID){
     document.getElementById(calendarTdID).className ="calendar-active-by-user";
 }
 
-function setUserSelectedDayOnClick(clkickedCalendarTdID){
-    
+function setUserSelectedDayOnClick(){
+    if (globalUserSuccesDateSelection==true) {
+        document.getElementById(globalUserDayMarked).className="calendar-body"
+        if (globalUserDayMarked==actDateMarked){document.getElementById(globalUserDayMarked).className="calendar-active"}
+    }
+    let clickedDay=this.innerHTML;
+    console.log(clickedDay);
+    if (clickedDay != null || ""){
+        globalUserDay=clickedDay;
+        globalUserMonth=globalCalendarWidgetMonth+1;
+        globalUserYear=globalCalendarWidgetYear;
+        globalUserSuccesDateSelection=true
+        markUserSelectedDayInCalendar(this.id);
+    } 
 }
 
 function getMonthMaxDays() {
-    let actMonth = globalActMonth;
-    let MaxDayCounter = isItLeapYear() == true && actMonth == 1 ? 29 : MonthMaxDays[actMonth];
+    let actMonth = globalCalendarWidgetMonth;
+    let MaxDayCounter = isItLeapYear(globalCalendarWidgetYear) == true && actMonth == 1 ? 29 : MonthMaxDays[actMonth];
     return MaxDayCounter;
 }
 
@@ -325,6 +337,8 @@ function jumpToUserDate(){
 }
 
 
+
+
 function fillCalendarDays(StartDay, MaxDayCounter) {
     let calendarDays = new Array(6).fill(null).map(() => new Array(7).fill(null));
     let DayNumber = 1;
@@ -356,6 +370,15 @@ function fillCalendarDays(StartDay, MaxDayCounter) {
 //        {nodelist[i][attribute] = value;}
 //}
 
+//Definiáljuk a naptár elemek OnClick eseményét
+function addClickEventToCalendarday(){
+    let calendarBodyTd= document.querySelectorAll(".calendar-body")
+    for (i = 0; i < calendarBodyTd.length; i++) {
+            calendarBodyTd[i].addEventListener("click",setUserSelectedDayOnClick);
+        }
+}
+
+
 //Már anaptár felület feltöltésekor színezzük az Atuális napot, de csak akkor, ha az Év és a hónap is az aktuális dátumon van.
 function writeCalendarDays(calendarDays) {
     let actYear = globalActYear;
@@ -366,13 +389,15 @@ function writeCalendarDays(calendarDays) {
     let userSelectedDay= globalUserDay;
     let calendarYear = globalCalendarWidgetYear;
     let calendarMonth = globalCalendarWidgetMonth;
+    let tdID="";
     for (x = 0; x <= 5; x++) {
         for (y = 0; y <= 6; y++) {
-            document.getElementById(String(x) + String(y)).innerHTML = calendarDays[x][y];
+            tdID=String(x) + String(y) + String(y);
+            document.getElementById(tdID).innerHTML = calendarDays[x][y];
             if (calendarDays[x][y] == actDay && actYear ==  calendarYear && actMonth == calendarMonth) 
-            {markActDayInCalendar(String(x) + String(y) + String(y));}
+            {markActDayInCalendar(tdID);}
             if (globalUserSuccesDateSelection == true && calendarDays[x][y] == userSelectedDay && userSelectedYear ==  calendarYear && userSelectedMonth == calendarMonth){
-                markUserSelectedDayInCalendar(String(x) + String(y) + String(y));
+                markUserSelectedDayInCalendar(tdID);
                 }
         }
     }

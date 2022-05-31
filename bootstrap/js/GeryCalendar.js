@@ -211,7 +211,6 @@ function getFirstWeekDayNumberOfMonthHun(actYear, actMonth) {
     if (actYear == null) { actYear = new Date().getFullYear() }
     if (actMonth == null) { actMonth = new Date().getMonth() }
     let DayNumber = new Date(String(actYear)+"." + String(actMonth+1) + "." + "01").getDay();
-    console.log(new Date(String(actYear)+"." + String(actMonth+1) + "." + "01"))
     DayNumber = DayNumber == 0 ? 6 : DayNumber-1;
     return DayNumber;
 }
@@ -238,7 +237,6 @@ function setUserSelectedDayOnClick(){
         if (globalUserDayMarked==actDateMarked){document.getElementById(globalUserDayMarked).className="calendar-active"}
     }
     let clickedDay=this.innerHTML;
-    console.log(clickedDay);
     if (clickedDay != null || ""){
         globalUserDay=clickedDay;
         globalUserMonth=globalCalendarWidgetMonth+1;
@@ -267,11 +265,9 @@ function previousMonth() {
         actMonth = actMonth - 1;
     }
     globalCalendarWidgetMonth = actMonth;
-    //A calendarWidgetben történő lapozáskor levesszük a formázást az utoljára beszínezett napról
-    if (actDateMarked !="" || null) {document.getElementById(actDateMarked).className="calendar-body"}
-    if (globalUserDayMarked !="" || null) {document.getElementById(globalUserDayMarked).className="calendar-body"}
     setMonthNameHun();
-    writeCalendarDays(fillCalendarDays(getFirstWeekDayNumberOfMonthHun(actYear, actMonth), getMonthMaxDays()))
+    removeCalendarBody();
+    createCalendarBody(fillCalendarDays(getFirstWeekDayNumberOfMonthHun(actYear, actMonth), getMonthMaxDays()))
 }
 
 
@@ -288,10 +284,9 @@ function nextMonth() {
         actMonth = actMonth + 1;
     }
     globalCalendarWidgetMonth = actMonth;
-    if (actDateMarked !="" || null) {document.getElementById(actDateMarked).className="calendar-body"}
-    if (globalUserDayMarked !="" || null) {document.getElementById(globalUserDayMarked).className="calendar-body"}
     setMonthNameHun();
-    writeCalendarDays(fillCalendarDays(getFirstWeekDayNumberOfMonthHun(actYear, actMonth), getMonthMaxDays()))
+    removeCalendarBody();
+    createCalendarBody(fillCalendarDays(getFirstWeekDayNumberOfMonthHun(actYear, actMonth), getMonthMaxDays()))
 }
 
 function nextMonthEn(actYear,actMonth) {
@@ -307,10 +302,9 @@ function nextMonthEn(actYear,actMonth) {
         globalCalendarWidgetMonth = actMonth + 1;
     }
     globalActMonth = actMonth;
-    if (actDateMarked !="" || null) {document.getElementById(actDateMarked).className="calendar-body"}
-    if (globalUserDayMarked !="" || null) {document.getElementById(globalUserDayMarked).className="calendar-body"}
     setMonthNameHun();
-    writeCalendarDays(fillCalendarDays(getFirstWeekDayNumberOfMonthEn(actYear, actMonth), getMonthMaxDays(actMonth, MonthMaxDays)))
+    removeCalendarBody();
+    createCalendarBody(fillCalendarDays(getFirstWeekDayNumberOfMonthEn(actYear, actMonth), getMonthMaxDays(actMonth, MonthMaxDays)))
 }
 
 
@@ -332,8 +326,9 @@ function jumpToUserDate(){
     globalCalendarWidgetYear=globalUserYear;
     globalCalendarWidgetMonth=parseInt(globalUserMonth)-1;
     if (globalCalendarWidgetYear != globalActYear || globalCalendarWidgetMonth != globalActMonth){document.getElementById(actDateMarked).className="calendar-body"};
-    setMonthNameHun()
-    writeCalendarDays(fillCalendarDays(getFirstWeekDayNumberOfMonthHun(globalCalendarWidgetYear,globalCalendarWidgetMonth),getMonthMaxDays()));
+    setMonthNameHun();
+    removeCalendarBody();
+    createCalendarBody(fillCalendarDays(getFirstWeekDayNumberOfMonthHun(globalCalendarWidgetYear,globalCalendarWidgetMonth),getMonthMaxDays()));
 }
 
 
@@ -377,9 +372,50 @@ function addClickEventToCalendarday(){
             calendarBodyTd[i].addEventListener("click",setUserSelectedDayOnClick);
         }
 }
+//A naptár testének eltávolítása soronként, a Body a szülő, a sorok a gyerekek
+function removeCalendarBody(){
+    let parent=document.querySelector("#calendarWidgetBody");
+    let childrens= document.querySelectorAll("#calendarTableRow");
+    for (i=0; i<childrens.length; i++){
+        parent.removeChild(childrens[i]);
+    } 
+}
 
+function createCalendarBody(calendarDays){
+    let calendarDaysDone = false;
+    let rowCounter = 0;
+    let tdID="";
+    let parentBody=document.querySelector("#calendarWidgetBody");
+    let monthMaxDay=getMonthMaxDays();
+    let lastWritenday=0;
+    do {
+        let calendarRow = document.createElement("tr");
+        calendarRow.id="calendarTableRow";
+        parentBody.appendChild(calendarRow);
+        let parentRow =parentBody.children[rowCounter];
+        for (let tdCounter = 0; tdCounter <= 6; tdCounter++) {
+            tdID=String(rowCounter) + String(tdCounter) + String(tdCounter);
+            let calendarTd = document.createElement("td");
+            calendarTd.id=tdID;
+            calendarTd.className="calendar-body";
+            calendarTd.innerHTML=calendarDays[rowCounter][tdCounter];
+            parentRow.appendChild(calendarTd);
+            if (calendarDays[rowCounter][tdCounter] !=null) {lastWritenday=calendarDays[rowCounter][tdCounter]}
+            if (calendarDays[rowCounter][tdCounter] == globalActDay && globalActYear ==  globalCalendarWidgetYear && globalActMonth == globalCalendarWidgetMonth) 
+            {markActDayInCalendar(tdID);}
+            if (globalUserSuccesDateSelection == true && calendarDays[rowCounter][tdCounter] == globalUserDay && globalUserYear ==  globalCalendarWidgetYear && parseInt(globalUserMonth)-1 == globalCalendarWidgetMonth){
+                markUserSelectedDayInCalendar(tdID);
+                }
+        }
+        rowCounter=rowCounter+1;
+        calendarDaysDone = monthMaxDay == lastWritenday ? true : false;
+    }
+    while (calendarDaysDone == false)
+ addClickEventToCalendarday()  
+}
 
 //Már anaptár felület feltöltésekor színezzük az Atuális napot, de csak akkor, ha az Év és a hónap is az aktuális dátumon van.
+// Lecserélve dinamikus táblázattá DOM segítségével
 function writeCalendarDays(calendarDays) {
     let actYear = globalActYear;
     let actMonth =globalActMonth;

@@ -92,61 +92,8 @@
                 <th class="text-danger link-danger">V</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td class="calendar-body" id="000"><Span id="00">##</Span></td>
-                <td class="calendar-body" id="011"><Span id="01">##</Span></td>
-                <td class="calendar-body" id="022"><Span id="02">##</Span></td>
-                <td class="calendar-body" id="033"><Span id="03">##</Span></td>
-                <td class="calendar-body" id="044"><Span id="04">##</Span></td>
-                <td class="calendar-body" id="055"><Span id="05">##</Span></td>
-                <td class="calendar-body" id="066"><Span id="06">##</Span></td>
-              </tr>
-              <tr>
-                <td class="calendar-body" id="100"><Span id="10">##</Span></td>
-                <td class="calendar-body" id="111"><Span id="11">##</Span></td>
-                <td class="calendar-body" id="122"><Span id="12">##</Span></td>
-                <td class="calendar-body" id="133"><Span id="13">##</Span></td>
-                <td class="calendar-body" id="144"><Span id="14">##</Span></td>
-                <td class="calendar-body" id="155"><Span id="15">##</Span></td>
-                <td class="calendar-body" id="166"><Span id="16">##</Span></td>
-              </tr>
-              <tr>
-                <td class="calendar-body" id="200"><Span id="20">##</Span></td>
-                <td class="calendar-body" id="211"><Span id="21">##</Span></td>
-                <td class="calendar-body" id="222"><Span id="22">##</Span></td>
-                <td class="calendar-body" id="233"><Span id="23">##</Span></td>
-                <td class="calendar-body" id="244"><Span id="24">##</Span></td>
-                <td class="calendar-body" id="255"><Span id="25">##</Span></td>
-                <td class="calendar-body" id="266"><Span id="26">##</Span></td>
-              </tr>
-              <tr>
-                <td class="calendar-body" id="300"><Span id="30">##</Span></td>
-                <td class="calendar-body" id="311"><Span id="31">##</Span></td>
-                <td class="calendar-body" id="322"><Span id="32">##</Span></td>
-                <td class="calendar-body" id="333"><Span id="33">##</Span></td>
-                <td class="calendar-body" id="344"><Span id="34">##</Span></td>
-                <td class="calendar-body" id="355"><Span id="35">##</Span></td>
-                <td class="calendar-body" id="366"><Span id="36">##</Span></td>
-              </tr>
-              <tr>
-                <td class="calendar-body" id="400"><Span id="40">##</Span></td>
-                <td class="calendar-body" id="411"><Span id="41">##</Span></td>
-                <td class="calendar-body" id="422"><Span id="42">##</Span></td>
-                <td class="calendar-body" id="433"><Span id="43">##</Span></td>
-                <td class="calendar-body" id="444"><Span id="44">##</Span></td>
-                <td class="calendar-body" id="455"><Span id="45">##</Span></td>
-                <td class="calendar-body" id="466"><Span id="46">##</Span></td>
-              </tr>
-              <tr>
-                <td class="calendar-body" id="500"><Span id="50">##</Span></td>
-                <td class="calendar-body" id="511"><Span id="51">##</Span></td>
-                <td class="calendar-body" id="522"><Span id="52">##</Span></td>
-                <td class="calendar-body" id="533"><Span id="53">##</Span></td>
-                <td class="calendar-body" id="544"><Span id="54">##</Span></td>
-                <td class="calendar-body" id="555"><Span id="55">##</Span></td>
-                <td class="calendar-body" id="566"><Span id="56">##</Span></td>
-              </tr>
+            <tbody id="calendarWidgetBody">
+
             </tbody>
           </table>
         </div>
@@ -217,11 +164,8 @@
       </div>
     </div>
   </div>
-  <Script>setShowYear(), setMonthNameHun(), setToday(), getTimeEverySecond(), writeActDayNameHun(),addClickEventToCalendarday(),
-      writeCalendarDays(fillCalendarDays(getFirstWeekDayNumberOfMonthHun(),getMonthMaxDays()))  
+  <Script>setShowYear(), setMonthNameHun(), setToday(), getTimeEverySecond(), writeActDayNameHun(),
+      createCalendarBody(fillCalendarDays(getFirstWeekDayNumberOfMonthHun(),getMonthMaxDays()))
   </Script>
-
-
 </body>
-
 </html>

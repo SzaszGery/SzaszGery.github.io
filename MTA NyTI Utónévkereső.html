@@ -1,0 +1,376 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- saved from url=(0046)http://corpus.nytud.hu/utonevportal/query.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="keywords" content="utónévportál,utónévkereső,utónév,keresztnév,vezetéknév,név,eredet,jelentés,becenév,becézés,névnap,gyakori,ritka,fiú,lány,névadás,keresztelő,gyerek,szülő,utónevek,keresztnevek,nevek,szülők">
+<meta name="description" content="Fedezze fel utóneveinket az MTA Nyelvtudományi Intézet utónévkeresőjével!">
+<link href="./MTA NyTI Utónévkereső_files/css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+<!--link rel="stylesheet" href="rmk.css" type="text/css"-->
+<title>MTA NyTI Utónévkereső</title>
+<!-- google analytics kovetokod -->
+<script type="text/javascript" async="" src="./MTA NyTI Utónévkereső_files/ga.js.letöltés"></script><script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-45756044-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<!--<style>
+body {
+  margin: 20px 20px 20px 20px;
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  background: #cae0ff;
+}
+.default_option { font-style: italic }
+.label_top {
+  vertical-align: top;
+  text-align: left;
+  display: inline-block;
+  width: 125px;
+  white-space: nowrap;
+}
+.szunet { margin-bottom: 0.95em; }
+div { margin: 2px; } /* !!! */
+.alap { width: 160px; }
+</style>
+-->
+</head>
+
+<body class="body body-info">
+<h3>MTA NyTI Utónévkereső</h3>
+<form name="f" action="pages/hu/NévnapTalálatLista.html" method="post" target="answer" style="margin-bottom: 0.7em">
+<!-- eredeti target http://corpus.nytud.hu/cgi-bin/utonevportal/k.pl-->
+<!-- 'nem' => 'nem' --> 
+<div>
+  <span class="label_top">Nem:</span>
+  <select name="nem" class="alap">
+    <option value="" selected="" class="default_option">Tetszőleges</option>
+    <option value="női">Női</option>
+    <option value="férfi">Férfi</option>
+  </select>
+</div>
+
+<!-- 'nev' => 'név' -->
+<div>
+  <span class="label_top">
+  Utónév
+  <select name="nev_match rounded-2">
+    <option value="ful" selected="" class="default_option">(teljes)</option>
+    <option value="beg">eleje</option>
+    <option value="end">vége</option>
+    <option value="mid">része</option>
+  </select>:
+  </span>
+  <input type="text" size="12" name="nev">
+</div>
+
+<div class="szunet"></div>
+
+<!-- 'erd' => 'eredet' -->
+<div>
+  <span class="label_top rounded-2">Eredet:</span> <!--span style="font-size: smaller">(szabadszavas)</span-->
+  <input class="rounded-2" type="text" size="12" name="erd">
+</div>
+
+<!-- 'fer' => 'formalizált eredet' -->
+<!-- a c�mk�t kihagytam, az eredet al� rendeltem... XXX -->
+<!--div>
+  formalizált eredet &hellip;
+</div-->
+
+<!-- 'fer' => 'formalizált eredet' / művelet -->
+<div>
+  <span class="label_top">Jelleg:<sup></sup></span> <!-- hátha ez jó elnevzés lesz itt a 'művelet' helyett -->
+  <!--select name="fer-mv" multiple="multiple" size="3"-->
+  <select name="fer-mv" class="alap rounded-2">
+    <option value="" class="default_option" selected="">tetszőleges</option>
+    <!--option value="[>">[></option--> <!-- ez sztem nem kell -->
+    <option value="alakvált">alakváltozat</option>
+    <option value="becézője">becéző</option>
+    <option value="megfelelője">más nyelvi megfelelő</option>
+    <option value="névalkotás">névalkotás</option>
+    <option value="(virágnév|növénynév|növénynemzetség|közszó)">– virágnév, közszó</option>
+    <option value="(családnév|nemzetségnév|törzsnév)">– családnév</option>
+    <!--option value="irodalmi-mű...">irodalmi-mű...</option-->
+    <option value="női=párja">női pár</option>
+    <option value="\+">összetétel</option>
+    <option value="rövidülése">rövidülés</option>
+    <option value="formája">módosított forma</option>
+    <option value="kicsinyítőképzős">– kicsinyítőképzős</option>
+    <option value="latinosított">– latinosított</option>
+    <option value="továbbképzett">– továbbképzett</option>
+    <!-- ismeretlen -->
+    <option value="\?\?\?">bizonytalan eredet</option>
+  </select>
+</div>
+
+<!-- 'fer' => 'formalizált eredet' / nyelvi eredet -->
+<div>
+  <span class="label_top">Nyelv:</span> <!-- XXX plusz: bibliai, mitólógiai -->
+  <!--select name="fer-ny" multiple="multiple" size="3"-->
+  <select name="fer-ny" class="alap">
+    <option value="" class="default_option" selected="">tetszőleges</option>
+    <!-- gyakoriak -->
+    <option value="régi=magyar">régi magyar</option>
+    <option value="latin">latin</option>
+    <option value="görög">görög</option>
+    <option value="germán">germán</option>
+    <option value="héber">héber</option>
+    <option value="bibliai">„bibliai”</option>
+    <option value="" disabled="disabled">―</option>
+    <!-- többi -->
+    <option value="angol">angol</option>
+    <option value="arab">arab</option>
+    <option value="finn">finn</option>
+    <option value="francia">francia</option>
+    <option value="holland">holland</option>
+    <option value="indiai">indiai</option>
+    <option value="ír">ír</option>
+    <option value="kelta">kelta</option>
+    <!--option value="magyar">magyar</option> <!- egyelőre kihagytam -->
+    <option value="mitológiai">„mitológiai”</option>
+    <option value="mongol">mongol</option>
+    <option value="német">német</option>
+    <option value="óangol">óangol</option>
+    <option value="olasz">olasz</option>
+    <option value="orosz">orosz</option>
+    <option value="perzsa">perzsa</option>
+    <option value="román">román</option>
+    <option value="skandináv">skandináv</option>
+    <option value="spanyol">spanyol</option>
+    <option value="szanszkrit">szanszkrit</option>
+    <option value="szláv">szláv</option>
+    <option value="török">török</option>
+  </select>
+</div>
+
+<!-- 'fer' => 'formalizált eredet' / ??? -->
+<div>
+  <span class="label_top">Adott névből:</span>
+  <!--select name="fer-nv" multiple="multiple" size="3"-->
+  <select name="fer-nv" class="alap">
+    <option value="" class="default_option" selected="">nincs megadva</option>
+    <!-- gyakoriak -->
+    <option value="Anna">Anna</option>
+    <option value="Mária">Mária</option>
+    <option value="Katalin">Katalin</option>
+    <option value="Ilona">Ilona</option>
+    <option value="Borbála">Borbála</option>
+    <option value="" disabled="disabled">―</option>
+    <!-- többi -->
+    <option value="Alexander">Alexander</option>
+    <option value="András">András</option>
+    <option value="Dorottya">Dorottya</option>
+    <option value="Eleonóra">Eleonóra</option>
+    <option value="Erzsébet">Erzsébet</option>
+    <option value="Éva">Éva</option>
+    <option value="Heléna">Heléna</option>
+    <option value="Irén">Irén</option>
+    <option value="Johanna">Johanna</option>
+    <option value="Julianna">Julianna</option>
+    <option value="Magdaléna">Magdaléna</option>
+    <option value="Margit">Margit</option>
+    <option value="Miklós">Miklós</option>
+    <option value="Nina">Nina</option>
+    <option value="Péter">Péter</option>
+    <option value="Róza">Róza</option>
+    <option value="Teodor">Teodor</option>
+    <option value="Terézia">Terézia</option>
+    <option value="Veronika">Veronika</option>
+    <option value="Zóra">Zóra</option>
+    <option value="Zsuzsanna">Zsuzsanna</option>
+  </select>
+</div>
+
+<!-- 'jel' => 'jelentés' -->
+<div>
+  <span class="label_top">Jelentés:</span>
+  <input type="text" size="12" name="jel">
+</div>
+
+<div class="szunet"></div>
+
+<!-- 'nnp' => 'névnap' -->
+<div>
+  <span class="label_top">Névnap:</span>
+  <!--select name="nnp-ho" multiple="multiple" size="3"-->
+  <select name="nnp-ho">
+    <option value=".." class="default_option" selected="">bármely hó</option>
+    <option value="01">január</option>
+    <option value="02">február</option>
+    <option value="03">március</option>
+    <option value="04">április</option>
+    <option value="05">május</option>
+    <option value="06">június</option>
+    <option value="07">július</option>
+    <option value="08">augusztus</option>
+    <option value="09">szeptember</option>
+    <option value="10">október</option>
+    <option value="11">november</option>
+    <option value="12">december</option>
+  </select>
+  <!--select name="nnp-np" multiple="multiple" size="3"-->
+  <select name="nnp-np">
+    <option value=".." class="default_option" selected="">nap</option>
+    <option value="01">1</option>
+    <option value="02">2</option>
+    <option value="03">3</option>
+    <option value="04">4</option>
+    <option value="05">5</option>
+    <option value="06">6</option>
+    <option value="07">7</option>
+    <option value="08">8</option>
+    <option value="09">9</option>
+    <option value="10">10</option>
+    <option value="11">11</option>
+    <option value="12">12</option>
+    <option value="13">13</option>
+    <option value="14">14</option>
+    <option value="15">15</option>
+    <option value="16">16</option>
+    <option value="17">17</option>
+    <option value="18">18</option>
+    <option value="19">19</option>
+    <option value="20">20</option>
+    <option value="21">21</option>
+    <option value="22">22</option>
+    <option value="23">23</option>
+    <option value="24">24</option>
+    <option value="25">25</option>
+    <option value="26">26</option>
+    <option value="27">27</option>
+    <option value="28">28</option>
+    <option value="29">29</option>
+    <option value="30">30</option>
+    <option value="31">31</option>
+  </select>
+</div>
+
+<!-- 'bec' => 'becézés' -->
+<div>
+  Becézése:
+  <select name="bec_match">
+    <option value="ful" selected="" class="default_option">(teljes)</option>
+    <option value="beg">eleje</option>
+    <option value="end">vége</option>
+    <option value="mid">része</option>
+  </select>:
+  <input type="text" size="12" name="bec">
+</div>
+
+<div class="szunet"></div>
+
+<!-- e 3-at a keresőből egyelőre kihagytam, ezekre nem oly fontos rákeresni -->
+<!-- 'rok' => 'rokon nevek' -->
+<!-- 'aka' => 'auto kapcs nevek' -->
+<!-- 'akv' => 'auto kapcs nevek visszafelé' -->
+
+<!-- 'szt' => 'szótagszám' --> 
+<div>
+  <span class="label_top">Szótagszám:</span>
+  <!--select name="szt" multiple="multiple" size="3"-->
+  <select name="szt" class="alap">
+    <option value="" selected="" class="default_option">tetszőleges</option>
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+    <option value="6">6</option>
+  </select>
+</div>
+
+<!-- 'hgr' => 'hangrend' -->
+<div>
+  <span class="label_top">Hangrend:</span>
+  <!--select name="hgr" multiple="multiple" size="3"-->
+  <select name="hgr" class="alap">
+    <option value="" selected="" class="default_option">tetszőleges</option>
+    <option value="mély">mély</option>
+    <option value="magas">magas</option>
+    <option value="vegyes">vegyes</option>
+  </select>
+</div>
+
+<!-- 'mgk' => 'mgh-kombináció' -->
+<div>
+  <span class="label_top">Magánhangzók:</span>
+  <input type="text" size="5" name="mgk">
+</div>
+
+<div class="szunet"></div>
+
+<!-- 'kkh' (rendes kkh gyakorisag) -->
+<div>
+  Gyakoriság <span style="font-size: smaller">(2013-01-01)</span>:
+</div>
+
+<!-- 'kkh' / össz-gyak-kat -->
+<div>
+  <span class="label_top">Össznépesség:</span>
+  <!--select name="kkh-ossz-gyak-kat" multiple="multiple" size="3"-->
+  <select name="kkh-ossz-gyak-kat" class="alap">
+    <option value="" selected="" class="default_option">tetszőleges</option>
+    <option value="első_tízben">1. első tízben</option>
+    <option value="rendkívül_gyakori">2. rendkívül gyakori</option>
+    <option value="nagyon_gyakori">3. nagyon gyakori</option>
+    <option value="közepesen_gyakori">4. közepesen gyakori</option>
+    <option value="elég_ritka">5. elég ritka</option>
+    <option value="nagyon_ritka">6. nagyon ritka</option>
+    <option value="rendkívül_ritka">7. rendkívül ritka</option>
+    <option value="néhány_előfordulás">8. néhány előfordulás</option>
+    <option value="" disabled="disabled">―</option>
+    <option value="(első_tízben|rendkívül_gyakori|nagyon_gyakori|közepesen_gyakori)">mindennapos (1-4.)</option>
+    <option value="(első_tízben|rendkívül_gyakori|nagyon_gyakori|közepesen_gyakori|elég_ritka)">közismert (1-5.)</option>
+    <option value="(első_tízben|rendkívül_gyakori|nagyon_gyakori|közepesen_gyakori|elég_ritka|nagyon_ritka)">különlegesebbek is (1-6.)</option>
+    <option value="(elég_ritka|nagyon_ritka|rendkívül_ritka|néhány_előfordulás)">ritka (5-8.)</option>
+  </select>
+</div>
+<!-- 'kkh' / újsz-gyak-kat -->
+<div>
+  <span class="label_top">Újszülöttek:</span>
+  <!--select name="kkh-ujsz-gyak-kat" multiple="multiple" size="3"-->
+  <select name="kkh-ujsz-gyak-kat" class="alap">
+    <option value="" selected="" class="default_option">tetszőleges</option>
+    <option value="első_tízben">1. első tízben</option>
+    <option value="rendkívül_gyakori">2. rendkívül gyakori</option>
+    <option value="nagyon_gyakori">3. nagyon gyakori</option>
+    <option value="közepesen_gyakori">4. közepesen gyakori</option>
+    <option value="elég_ritka">5. elég ritka</option>
+    <option value="nagyon_ritka">6. nagyon ritka</option>
+    <option value="rendkívül_ritka">7. rendkívül ritka</option>
+    <option value="néhány_előfordulás">8. néhány előfordulás</option>
+    <option value="" disabled="disabled">―</option>
+    <option value="(első_tízben|rendkívül_gyakori|nagyon_gyakori|közepesen_gyakori)">mindennapos (1-4.)</option>
+    <option value="(első_tízben|rendkívül_gyakori|nagyon_gyakori|közepesen_gyakori|elég_ritka)">közismert (1-5.)</option>
+    <option value="(első_tízben|rendkívül_gyakori|nagyon_gyakori|közepesen_gyakori|elég_ritka|nagyon_ritka)">különlegesebbek is (1-6.)</option>
+    <option value="(elég_ritka|nagyon_ritka|rendkívül_ritka|néhány_előfordulás)">ritka (5-8.)</option>
+  </select>
+</div>
+<!-- 'kkh' / gyak-trend -->
+<div>
+  <span class="label_top">Trend:</span>
+  <!--select name="kkh-gyak-trend" multiple="multiple" size="3"-->
+  <select name="kkh-gyak-trend" class="alap">
+    <option value="" selected="" class="default_option">tetszőleges</option>
+    <option value="#x2197;">gyakoribbá váló</option>
+    <option value="#x2198;">ritkábbá váló</option>
+    <option value="=">változatlan</option>
+  </select>
+</div>
+
+<div>
+<input style="font-weight: bold" type="submit" value="Mehet">
+<input style="font-size: 60%" type="reset" value="Törlés">
+</div>
+
+</form>
+</body>
+</html>

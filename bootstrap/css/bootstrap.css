@@ -384,10 +384,44 @@ select {
 
 select {
   word-wrap: normal;
+  background-color: #b6effb;
+  border: 1px solid black;
+}
+select:hover{
+  border-color: #06357a;
+  background-color: #0dcaf0;
+  color: black;
+}
+select:focus{
+  border-color: #06357a;
+  background-color: #0dcaf0;
+  color: black;
 }
 select:disabled {
   opacity: 1;
 }
+input{
+  word-wrap: normal;
+  background-color: #b6effb;
+  border: 1px solid black;
+}
+input:hover{
+  border-color: #06357a;
+  background-color: #0dcaf0;
+  text-decoration-color: #cfe2ff;
+}
+
+input::content{
+  word-wrap: normal;
+  background-color: #b6effb;
+  border: 1px solid black;
+}
+input.internal-autofill-selected{
+  word-wrap: normal;
+  background-color: #b6effb;
+  border: 1px solid black;
+}
+
 
 [list]:not([type=date]):not([type=datetime-local]):not([type=month]):not([type=week]):not([type=time])::-webkit-calendar-picker-indicator {
   display: none !important;
